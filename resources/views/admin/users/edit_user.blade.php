@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Add user')
+@section('title', 'Edit user')
 
 @section('content')
-<h1 align="center">Add User nè</h1>
+<h1 align="center">Edit User nè</h1>
 <div class="container">
 	@if ($errors->any())
 	    <div class="alert alert-danger">
@@ -14,23 +14,21 @@
 	        </ul>
 	    </div>
 	@endif
-	<form action="{{Route('add_user')}}" method="POST" class="container form-group" style="width: 80%;">
+	<form action="{{Route('/admin/edit_user/', $id)}}" method="POST" class="container form-group" style="width: 80%;">
 		@csrf
+		@foreach ($users as $user)
 		<div class="form-group">
 		    <label for="name">Name: </label>
-		    <input type="text" class="form-control" name="name">
+		    <input type="text" class="form-control" name="name" value="{{$user->name}}">
 		</div>
 		<div class="form-group">
 		    <label for="email">Email address:</label>
-		    <input type="email" class="form-control" name="email">
-		</div>
-		<div class="form-group">
-			<label for="password">Password:</label>
-			<input type="password" class="form-control" name="password">
+		    <input type="email" class="form-control" name="email" value="{{$user->email}}">
 		</div>
 		<div class="form-group" align="center">
-			<input type="submit" class="btn btn-primary" name="add_user" value="Add user">
+			<input type="submit" class="btn btn-primary" name="edit_user" value="Add user">
 		</div>
+		@endforeach
 	</form>
 </div>
 
