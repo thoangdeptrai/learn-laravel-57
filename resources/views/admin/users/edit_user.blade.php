@@ -14,9 +14,9 @@
 	        </ul>
 	    </div>
 	@endif
-	<form action="{{Route('/admin/edit_user/', $id)}}" method="POST" class="container form-group" style="width: 80%;">
+	@foreach ($users as $user)
+	<form action="{{ url('/admin/edit_user', $user->id) }}" method="POST" class="container form-group" style="width: 80%;">
 		@csrf
-		@foreach ($users as $user)
 		<div class="form-group">
 		    <label for="name">Name: </label>
 		    <input type="text" class="form-control" name="name" value="{{$user->name}}">
@@ -26,10 +26,10 @@
 		    <input type="email" class="form-control" name="email" value="{{$user->email}}">
 		</div>
 		<div class="form-group" align="center">
-			<input type="submit" class="btn btn-primary" name="edit_user" value="Add user">
+			<input type="submit" class="btn btn-primary" name="edit_user" value="Edit user">
 		</div>
-		@endforeach
 	</form>
+	@endforeach
 </div>
 
 

@@ -25,8 +25,10 @@ Route::get('/admin/list_user', 'UserController@list_user')->name('ahihi');
 
 Route::get('/admin/add_user', 'UserController@get_add_user')->name('add_user');
 
-Route::get('/admin/edit_user/{id}', 'UserController@getUserToEdit')->name('/admin/edit_user/');
+Route::post('/add_user', 'UserController@add_user')->name('add_user');
+
+Route::get('/admin/edit_user/{id}', 'UserController@getUserToEdit')->name('edit_user');
+
+Route::post('/admin/edit_user/{id}', 'UserController@editUser')->name('editUser');
 
 Route::get('/admin/delete_user/{id}', 'UserController@delete_user')->name('delete');
-
-Route::post('/add_user', 'UserController@add_user')->name('add_user');

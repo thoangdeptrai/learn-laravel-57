@@ -25,8 +25,8 @@ class UserController extends Controller
 
     public function add_user(Request $request) {
     	$request->validate([
-    		'name' => 'required|max:255',
-    		'email' => 'required|email',
+    		'name' => 'required|max:255|unique:users,name',
+    		'email' => 'required|email|unique:users,email',
     		'password' => 'required|max:20|min:4',
     	]);
     	$name = $request->name;
@@ -38,7 +38,22 @@ class UserController extends Controller
 
     public function getUserToEdit($id) {
     	$users['users'] = DB::table('users')->where('id', $id)->get();
-    	return view('admin.users.edit_user', ['id' => $id]);
+    	return view('admin.users.edit_user', $users);
+    }
+
+    public function editUser($id, Request $request) {
+    	$request->validate([
+    		'name' => 'required|max:255|min:2|unique:users,name,'.$id,
+    		'email' => 'required|email|unique:users,email,'.$id,
+    	]);
+    	$name = $request->name;
+    	$email = $request->email;
+    	DB::table('users')->where('id', $id)
+    					->update(
+    						['name' => $name,
+    						 'email' => $email]
+    					);
+    	return redirect('admin/list_user');
     }
 
     public function delete_user($id) {
